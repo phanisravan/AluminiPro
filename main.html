@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Alumni — Sign in</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg1: #0f172a;
+      --accent1: #7c3aed;
+      --accent2: #f472b6;
+      --card-bg: rgba(255,255,255,0.95);
+      --glass: rgba(255,255,255,0.06);
+      --muted: #6b7280;
+      --success: #10b981;
+      --shadow: 0 10px 30px rgba(2,6,23,0.6);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
+      background:
+        radial-gradient(1200px 600px at 10% 10%, rgba(124,58,237,0.18), transparent 12%),
+        radial-gradient(1000px 500px at 90% 90%, rgba(244,114,182,0.14), transparent 12%),
+        linear-gradient(180deg, #020617 0%, #071029 30%, #071428 100%);
+      color:#0f172a;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:32px;
+    }
+
+    /* Card */
+    .auth-card{
+      width:100%;
+      max-width:920px;
+      border-radius:20px;
+      background:linear-gradient(180deg, rgba(255,255,255,0.86), rgba(255,255,255,0.80));
+      box-shadow: var(--shadow);
+      display:grid;
+      grid-template-columns: 1fr 420px;
+      overflow:hidden;
+      backdrop-filter: blur(6px) saturate(120%);
+      border:1px solid rgba(255,255,255,0.06);
+    }
+
+    /* Left visual */
+    .visual{
+      padding:40px;
+      display:flex;
+      flex-direction:column;
+      gap:18px;
+      background:
+        linear-gradient(180deg, rgba(124,58,237,0.08), rgba(244,114,182,0.04));
+      align-items:flex-start;
+      justify-content:center;
+    }
+    .logo{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+    .logo .mark{
+      width:56px;height:56px;border-radius:12px;
+      display:grid;place-items:center;
+      background:linear-gradient(135deg,var(--accent1),var(--accent2));
+      color:white;font-weight:700;font-size:20px;
+      box-shadow:0 6px 18px rgba(124,58,237,0.24);
+    }
+    .visual h2{
+      margin:0;font-size:28px;line-height:1.05;color:#061024;font-weight:700;
+    }
+    .visual p{margin:0;color:var(--muted);max-width:36ch}
+
+    .pill-row{
+      margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;
+    }
+    .pill{
+      background:var(--glass);padding:8px 12px;border-radius:999px;font-size:13px;color:#08202a;border:1px solid rgba(255,255,255,0.04)
+    }
+
+    /* Right form */
+    .form-wrap{
+      padding:36px;
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+      align-items:center;
+      justify-content:center;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.0), rgba(255,255,255,0.02));
+    }
+    .card-title{font-size:20px;margin:0;font-weight:700;color:#07102a}
+    .card-sub{font-size:13px;color:var(--muted);margin:0}
+
+    .socials{width:100%;display:flex;flex-direction:column;gap:10px;margin-top:12px}
+    .btn{
+      display:inline-flex;align-items:center;gap:12px;padding:12px 14px;border-radius:12px;font-weight:600;border:1px solid rgba(2,6,23,0.06);cursor:pointer;text-decoration:none;
+      transition:transform .14s ease, box-shadow .14s ease;
+      background:white;
+      box-shadow: 0 6px 18px rgba(2,6,23,0.06);
+      justify-content:center;
+    }
+    .btn:active{transform:translateY(1px)}
+    .btn svg{width:20px;height:20px;flex-shrink:0}
+
+    .btn.google{background:white;color:#111;border:1px solid rgba(2,6,23,0.06)}
+    .btn.facebook{background:#1877f2;color:white}
+    .btn.linkedin{background:#0a66c2;color:white}
+
+    .or-sep{display:flex;gap:12px;align-items:center;width:100%;margin:10px 0}
+    .or-sep .line{flex:1;height:1px;background:linear-gradient(90deg,rgba(2,6,23,0.04),rgba(2,6,23,0.02))}
+    .or-sep .or{font-size:13px;color:var(--muted);padding:0 6px}
+
+    form.auth{width:100%;display:flex;flex-direction:column;gap:10px}
+    .input{
+      width:100%;padding:12px 14px;border-radius:12px;border:1px solid rgba(2,6,23,0.06);font-size:14px;background:transparent;outline:none;
+    }
+    .actions{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:6px}
+    .checkbox{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:13px}
+    .primary{
+      background:linear-gradient(90deg,var(--accent1),var(--accent2));
+      color:white;border:none;padding:12px 16px;border-radius:12px;font-weight:700;cursor:pointer;box-shadow:0 8px 20px rgba(124,58,237,0.18)
+    }
+    .secondary{background:transparent;border:none;color:var(--muted);font-weight:600;cursor:pointer}
+
+    .footer-row{display:flex;gap:8px;font-size:13px;color:var(--muted);align-items:center;margin-top:6px}
+    .link{color:var(--accent1);text-decoration:none;font-weight:700}
+
+    /* small screens */
+    @media (max-width:880px){
+      .auth-card{grid-template-columns:1fr;max-width:520px}
+      .visual{order:2;padding:28px;align-items:center;text-align:center}
+      .form-wrap{order:1;padding:28px}
+    }
+
+    /* subtle animation */
+    .auth-card{transform:translateY(6px);animation:pop .6s cubic-bezier(.2,.9,.25,1) both}
+    @keyframes pop{from{opacity:0;transform:translateY(18px) scale(.995)} to{opacity:1;transform:translateY(0) scale(1)}}
+  </style>
+</head>
+<body>
+  <main class="auth-card" role="main" aria-labelledby="auth-heading">
+    <section class="visual" aria-hidden="false">
+      <div class="logo" aria-hidden="true">
+        <div class="mark">A</div>
+        <div>
+          <div style="font-size:15px;color:#0b1220;font-weight:800">AlumniConnect</div>
+          <div style="font-size:12px;color:var(--muted);margin-top:2px">Your college. Your network.</div>
+        </div>
+      </div>
+
+      <h2 id="auth-heading">Reunite • Mentor • Grow</h2>
+      <p>Sign in to access alumni discussions, job postings, mentorship programs, and college events — built just for your batch.</p>
+
+      <div class="pill-row" aria-hidden="true">
+        <div class="pill">Verified</div>
+        <div class="pill">Secure</div>
+        <div class="pill">Mentorship</div>
+        <div class="pill">Jobs</div>
+      </div>
+
+      <div style="margin-top:18px;color:var(--muted);font-size:13px;max-width:42ch">
+        <strong style="color:#061024">Why sign in?</strong>
+        <div style="margin-top:8px">Get personalised updates, find and offer mentorship, and stay in touch with college initiatives — all under one verified alumni profile.</div>
+      </div>
+    </section>
+
+    <section class="form-wrap" aria-label="Sign in form">
+      <div style="width:100%;max-width:360px">
+        <h3 class="card-title">Welcome back</h3>
+        <p class="card-sub">Sign in to continue to AlumniConnect</p>
+
+        <div class="socials" role="group" aria-label="Social sign in">
+          <a class="btn google" href="#" onclick="social('google', event)" aria-label="Continue with Google">
+            <!-- Google SVG -->
+            <svg viewBox="0 0 533.5 544.3" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill="#4285f4" d="M533.5 278.4c0-17.4-1.4-34.4-4.1-50.9H272v96.2h146.9c-6.3 34.2-25.4 63.2-54.4 82.6v68.8h87.9c51.4-47.3 81.1-117.2 81.1-196.7z"/><path fill="#34a853" d="M272 544.3c73.8 0 135.8-24.4 181.1-66.4l-87.9-68.8c-24.5 16.4-55.9 26-93.2 26-71.6 0-132.3-48.3-154-113.1H29.6v71.3C74.6 492.4 165.3 544.3 272 544.3z"/><path fill="#fbbc04" d="M118 324.1c-5.5-16.4-8.7-33.9-8.7-52s3.2-35.6 8.7-52V148.8H29.6C10.9 192.1 0 236.6 0 272.1s10.9 80 29.6 123.3L118 324.1z"/><path fill="#ea4335" d="M272 107.6c39.9 0 75.8 13.8 104 40.9l78-78C407.6 24.4 345.6 0 272 0 165.3 0 74.6 51.9 29.6 126.9l88.4 71.3c21.7-64.8 82.4-113.1 154-113.1z"/></svg>
+            Continue with Google
+          </a>
+
+          <a class="btn facebook" href="#" onclick="social('facebook', event)" aria-label="Continue with Facebook">
+            <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M22 12.07C22 6.48 17.52 2 11.93 2S1.86 6.48 1.86 12.07C1.86 17.09 5.88 21 10.74 21v-7.6H8.28v-2.33h2.46V9.14c0-2.43 1.44-3.76 3.64-3.76 1.06 0 2.17.19 2.17.19v2.38h-1.21c-1.2 0-1.57.75-1.57 1.52v1.82h2.67l-.43 2.33h-2.24V21c4.86-.01 8.88-3.91 8.88-8.93z"/></svg>
+            Continue with Facebook
+          </a>
+
+          <a class="btn linkedin" href="#" onclick="social('linkedin', event)" aria-label="Continue with LinkedIn">
+            <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.34c0-1.27-.02-2.9-1.77-2.9-1.77 0-2.04 1.38-2.04 2.8v5.44H9.02V9h3.42v1.56h.05c.48-.91 1.66-1.87 3.42-1.87 3.66 0 4.34 2.41 4.34 5.54v6.72zM5.34 7.43c-1.14 0-2.06-.93-2.06-2.08 0-1.14.92-2.07 2.06-2.07 1.14 0 2.06.93 2.06 2.07 0 1.15-.92 2.08-2.06 2.08zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+            Continue with LinkedIn
+          </a>
+        </div>
+
+        <div class="or-sep" aria-hidden="true">
+          <div class="line"></div>
+          <div class="or">or</div>
+          <div class="line"></div>
+        </div>
+
+        <form class="auth" onsubmit="emailSignIn(event)" aria-label="Email sign in">
+          <label class="visually-hidden">Email
+            <input class="input" id="email" name="email" type="email" placeholder="Email address" required aria-required="true" autocomplete="email">
+          </label>
+          <label class="visually-hidden">Password
+            <input class="input" id="password" name="password" type="password" placeholder="Password" required aria-required="true" autocomplete="current-password">
+          </label>
+
+          <div class="actions">
+            <label class="checkbox"><input type="checkbox" id="remember"> Remember me</label>
+            <button type="button" class="secondary" onclick="resetPassword()">Forgot?</button>
+          </div>
+
+          <button class="primary" type="submit" onclick="window.location.href='home.html'">Sign in</button>
+        </form>
+
+        <div class="footer-row" aria-hidden="true">
+          <div style="flex:1;color:var(--muted)">Don't have an account?</div>
+          <a class="link" href="#">Create account</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Placeholder handlers — replace with real OAuth & auth endpoints in production.
+    function social(provider, ev){
+      ev.preventDefault();
+      // In production, redirect to your backend endpoint that starts OAuth flow:
+      // window.location = `/auth/${provider}`;
+      alert('Start ' + provider + ' sign-in (placeholder). Implement OAuth flow on server.');
+    }
+    // let g=document.getElementById("homelink");
+    // function  g.onclick()
+
+    function emailSignIn(ev){
+      ev.preventDefault();
+      const email = document.getElementById('email').value.trim();
+      const pass = document.getElementById('password').value;
+      if(!email || !pass){ alert('Please enter email and password.'); return; }
+      // Send to your API: POST /api/auth/login with fetch/xhr.
+      // This is a placeholder to show success UI.
+      subtleSuccess('Signed in successfully — (placeholder)');
+    }
+
+    function resetPassword(){
+      const email = document.getElementById('email').value.trim();
+      if(!email){ alert('Enter your email above to reset password.'); return; }
+      // In production: POST /api/auth/reset with email.
+      alert('Password reset link sent to ' + email + ' (placeholder).');
+    }
+
+    // subtle success animation
+    function subtleSuccess(msg){
+      const el = document.createElement('div');
+      el.textContent = msg;
+      el.style.position='fixed';
+      el.style.left='50%';
+      el.style.bottom='36px';
+      el.style.transform='translateX(-50%)';
+      el.style.background='linear-gradient(90deg,#06b6d4,#7c3aed)';
+      el.style.color='white';
+      el.style.padding='12px 18px';
+      el.style.borderRadius='12px';
+      el.style.boxShadow='0 8px 30px rgba(12,74,110,0.18)';
+      el.style.fontWeight='700';
+      el.style.zIndex=9999;
+      document.body.appendChild(el);
+      setTimeout(()=>{ el.style.transition='opacity .4s'; el.style.opacity='0'; },1600);
+      setTimeout(()=>el.remove(),2200);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mentorship Page</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: #f9f9f9;
+      color: #333;
+    }
+    header {
+      background: #1565c0;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 28px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+    .intro {
+      text-align: center;
+      padding: 40px 20px;
+      max-width: 900px;
+      margin: auto;
+    }
+    .intro h2 { font-size: 36px; color: #2c3e50; margin-bottom: 15px; }
+    .intro p { font-size: 18px; line-height: 1.6; }
+
+    /* Search and filter */
+    .search-bar {
+      text-align: center;
+      margin: 20px auto;
+    }
+    .search-bar input, .search-bar select {
+      padding: 12px;
+      width: 250px;
+      margin: 10px;
+      border-radius: 8px;
+      border: 1px solid #bbb;
+    }
+
+    /* Mentor cards */
+    .mentors {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+      padding: 30px;
+    }
+    .mentor-card {
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+      text-align: center;
+      padding: 25px;
+      transition: transform 0.3s;
+    }
+    .mentor-card:hover { transform: translateY(-10px); }
+    .mentor-card img {
+      width: 120px; height: 120px; border-radius: 50%;
+      border: 4px solid #1565c0; margin-bottom: 15px; object-fit: cover;
+    }
+    .mentor-card h3 { color: #1565c0; margin-bottom: 5px; }
+    .mentor-card p { font-size: 15px; margin-bottom: 10px; }
+    .mentor-card button {
+      background: #1565c0; color: white; border: none;
+      padding: 10px 20px; border-radius: 6px;
+      cursor: pointer; transition: background 0.3s;
+    }
+    .mentor-card button:hover { background: #0d47a1; }
+
+    /* Stats */
+    .stats {
+      background: #e3f2fd;
+      padding: 50px 20px;
+      text-align: center;
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+    }
+    .stat-box {
+      font-size: 24px;
+      margin: 15px;
+      color: #1565c0;
+    }
+
+    /* Programs */
+    .programs {
+      padding: 50px 20px;
+      background: #fff;
+    }
+    .programs h2 { text-align: center; margin-bottom: 30px; }
+    .program-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+    }
+    .program-card {
+      background: #f1f8ff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .program-card h3 { color: #1565c0; }
+    .program-card p { margin: 10px 0; }
+    .program-card span {
+      font-size: 14px;
+      color: #444;
+      display: block;
+      margin-bottom: 10px;
+    }
+    .program-card button {
+      background: #1565c0; color: white;
+      border: none; padding: 8px 16px;
+      border-radius: 5px; cursor: pointer;
+    }
+
+    /* Testimonials */
+    .testimonials {
+      padding: 50px 20px;
+      background: #fff3e0;
+    }
+    .testimonials h2 { text-align: center; margin-bottom: 30px; }
+    .testimonial {
+      max-width: 600px;
+      margin: 20px auto;
+      background: white;
+      padding: 20px;
+      border-left: 5px solid #e91e63;
+      border-radius: 8px;
+    }
+
+    /* FAQ */
+    .faq {
+      padding: 50px 20px;
+      background: #f5f5f5;
+    }
+    .faq h2 { text-align: center; margin-bottom: 30px; }
+    .faq-item {
+      max-width: 700px;
+      margin: 15px auto;
+    }
+    .faq-item h4 { cursor: pointer; color: #1565c0; }
+    .faq-item p { display: none; margin: 10px 0; }
+
+    /* Newsletter */
+    .newsletter {
+      background: #1565c0;
+      color: white;
+      text-align: center;
+      padding: 40px 20px;
+    }
+    .newsletter input {
+      padding: 12px;
+      width: 250px;
+      margin: 10px;
+      border-radius: 6px;
+      border: none;
+    }
+    .newsletter button {
+      padding: 12px 20px;
+      border: none;
+      background: #e91e63;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    /* Contact */
+    .contact {
+      padding: 50px 20px;
+      text-align: center;
+      background: #fafafa;
+    }
+    .contact h2 { margin-bottom: 20px; }
+    .contact p { margin: 5px 0; }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      background: #1565c0;
+      color: white;
+      padding: 20px;
+      margin-top: 50px;
+    }
+    .social a {
+      color: white; margin: 0 10px; font-size: 20px; text-decoration: none;
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      justify-content: center; align-items: center;
+    }
+    .modal-content {
+      background: white; padding: 30px;
+      border-radius: 10px; width: 400px;
+      text-align: center;
+    }
+    .modal-content input, .modal-content textarea {
+      width: 90%; padding: 10px; margin: 10px 0;
+      border-radius: 6px; border: 1px solid #ccc;
+    }
+    .close { cursor: pointer; color: red; float: right; font-weight: bold; }
+  </style>
+</head>
+<body>
+
+<header>Alumni Mentorship Program</header>
+
+<section class="intro">
+  <h2>Connect. Learn. Grow.</h2>
+  <p>
+    Our mentorship program links alumni with students for career guidance, skill-building, and networking. 
+    Search for mentors by expertise and request guidance directly.
+  </p>
+</section>
+
+<!-- Search and Filter -->
+<div class="search-bar">
+  <input type="text" placeholder="Search mentor by name...">
+  <select>
+    <option>All Domains</option>
+    <option>Technology</option>
+    <option>Management</option>
+    <option>Design</option>
+    <option>Research</option>
+  </select>
+</div>
+
+<!-- Mentors -->
+<section class="mentors">
+  <div class="mentor-card"><img src="https://randomuser.me/api/portraits/men/45.jpg"><h3>Rahul Sharma</h3><p>Software Engineer @ Google</p><button onclick="openModal()">Request Mentorship</button></div>
+  <div class="mentor-card"><img src="https://randomuser.me/api/portraits/women/47.jpg"><h3>Anjali Mehta</h3><p>Product Manager @ Microsoft</p><button onclick="openModal()">Request Mentorship</button></div>
+  <div class="mentor-card"><img src="https://randomuser.me/api/portraits/men/23.jpg"><h3>Vikram Singh</h3><p>Data Scientist @ Amazon</p><button onclick="openModal()">Request Mentorship</button></div>
+  <div class="mentor-card"><img src="https://randomuser.me/api/portraits/men/12.jpg"><h3>Karan Patel</h3><p>Cybersecurity Expert @ Cisco</p><button onclick="openModal()">Request Mentorship</button></div>
+  <div class="mentor-card"><img src="https://randomuser.me/api/portraits/women/56.jpg"><h3>Neha Gupta</h3><p>AI Researcher @ IBM</p><button onclick="openModal()">Request Mentorship</button></div>
+  <div class="mentor-card"><img src="https://randomuser.me/api/portraits/men/64.jpg"><h3>Arjun Reddy</h3><p>Entrepreneur @ StartupHub</p><button onclick="openModal()">Request Mentorship</button></div>
+  <div class="mentor-card"><img src="https://randomuser.me/api/portraits/women/24.jpg"><h3>Priya Nair</h3><p>UX Designer @ Adobe</p><button onclick="openModal()">Request Mentorship</button></div>
+  <div class="mentor-card"><img src="https://randomuser.me/api/portraits/men/34.jpg"><h3>Amit Khanna</h3><p>Finance Manager @ Deloitte</p><button onclick="openModal()">Request Mentorship</button></div>
+  <div class="mentor-card"><img src="https://randomuser.me/api/portraits/women/65.jpg"><h3>Sonia Kapoor</h3><p>Professor @ Harvard</p><button onclick="openModal()">Request Mentorship</button></div>
+</section>
+
+<!-- Stats -->
+<section class="stats">
+  <div class="stat-box"><strong id="mentors">150</strong><br>Mentors</div>
+  <div class="stat-box"><strong id="mentees">500</strong><br>Mentees</div>
+  <div class="stat-box"><strong id="sessions">1200</strong><br>Sessions</div>
+</section>
+
+<!-- Programs -->
+<section class="programs">
+  <h2>Upcoming Mentorship Programs</h2>
+  <div class="program-list">
+    <div class="program-card"><h3>AI & Machine Learning Bootcamp</h3><span>Start Date: 20th Sept</span><p>Hands-on mentorship for ML projects.</p><button>Register</button></div>
+    <div class="program-card"><h3>Leadership in Tech</h3><span>Start Date: 25th Sept</span><p>Guidance on becoming effective leaders in IT.</p><button>Register</button></div>
+    <div class="program-card"><h3>Data Science for Beginners</h3><span>Start Date: 28th Sept</span><p>Step into data with alumni experts.</p><button>Register</button></div>
+    <div class="program-card"><h3>Cybersecurity Awareness</h3><span>Start Date: 2nd Oct</span><p>Protect systems with mentorship sessions.</p><button>Register</button></div>
+    <div class="program-card"><h3>Entrepreneurship & Startups</h3><span>Start Date: 5th Oct</span><p>Learn how to build and scale startups.</p><button>Register</button></div>
+    <div class="program-card"><h3>UX/UI Design Thinking</h3><span>Start Date: 7th Oct</span><p>Creative design guidance from alumni mentors.</p><button>Register</button></div>
+    <div class="program-card"><h3>Financial Planning for Careers</h3><span>Start Date: 10th Oct</span><p>Learn investment & career money management.</p><button>Register</button></div>
+    <div class="program-card"><h3>Research & Publications</h3><span>Start Date: 12th Oct</span><p>How to publish research papers with mentors.</p><button>Register</button></div>
+    <div class="program-card"><h3>Soft Skills & Interview Prep</h3><span>Start Date: 15th Oct</span><p>Get job-ready with communication training.</p><button>Register</button></div>
+  </div>
+</section>
+
+<!-- Testimonials -->
+<section class="testimonials">
+  <h2>Success Stories</h2>
+  <div class="testimonial">"Thanks to my mentor, I landed my dream job in AI research!" – Student</div>
+  <div class="testimonial">"Mentoring gave me the chance to give back and stay connected to my college." – Alumnus</div>
+  <div class="testimonial">"The Entrepreneurship program gave me confidence to launch my own startup." – Student</div>
+  <div class="testimonial">"Through mentorship, I transitioned into a leadership role." – Alumni Mentor</div>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <h2>Frequently Asked Questions</h2>
+  <div class="faq-item"><h4 onclick="toggleFAQ(this)">How do I request mentorship?</h4><p>Click the 'Request Mentorship' button under a mentor's profile.</p></div>
+  <div class="faq-item"><h4 onclick="toggleFAQ(this)">Can alumni apply to be mentors?</h4><p>Yes, alumni can apply through the 'Become a Mentor' section.</p></div>
+</section>
+
+<!-- Newsletter -->
+<section class="newsletter">
+  <h2>Stay Updated</h2>
+  <p>Subscribe to our newsletter for upcoming mentorship events and updates.</p>
+  <input type="email" placeholder="Enter your email"><button>Subscribe</button>
+</section>
+
+<!-- Contact -->
+<section class="contact">
+  <h2>Contact Us</h2>
+  <p>Email: mentorship@college.edu</p>
+  <p>Phone: +91 9876543210</p>
+</section>
+
+
+<!-- Modal Form -->
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <h3>Request Mentorship</h3>
+    <input type="text" placeholder="Your Name">
+    <input type="email" placeholder="Your Email">
+    <textarea rows="4" placeholder="Write your request..."></textarea>
+    <button>Submit</button>
+  </div>
+</div>
+
+<script>
+  function openModal() { document.getElementById('modal').style.display = 'flex'; }
+  function closeModal() { document.getElementById('modal').style.display = 'none'; }
+  function toggleFAQ(element) {
+    let p = element.nextElementSibling;
+    p.style.display = p.style.display === "block" ? "none" : "block";
+  }
+</script>
+
+</body>
+</html>
